@@ -11,15 +11,15 @@ Convolutional Neural Networks 卷积神经网络（CNN, convnets)
 - 形变illumination
 - 遮挡occlusion
 
-![image-20230930095600944](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930095600944.png)
+![image-20230930095600944](./图片/image-20230930095600944.png)
 
 ### **最近邻分类器**
 
-![image-20230930100238645](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930100238645.png)
+![image-20230930100238645](./图片/image-20230930100238645.png)
 
 L1距离（曼哈顿距离）：
 
-![image-20230930100345941](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930100345941.png)
+![image-20230930100345941](./图片/image-20230930100345941.png)
 
 ```python
 import numpy as np
@@ -69,7 +69,7 @@ Train O(1) => Predict O(n)
 
 最近邻算法表示图：
 
-![image-20230930101722928](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930101722928.png)
+![image-20230930101722928](./图片/image-20230930101722928.png)
 
 点代表测试点，区域代表标签
 
@@ -81,7 +81,7 @@ Train O(1) => Predict O(n)
 
 ### **K最近邻算法（K-Nearest Neighbors，KNN）**
 
-![image-20230930102058114](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930102058114.png)
+![image-20230930102058114](./图片/image-20230930102058114.png)
 
 白色区域代表没有获得K最近邻的投票，可以大胆将它归为随机周围的类
 
@@ -89,25 +89,25 @@ Train O(1) => Predict O(n)
 
 L2距离（欧式距离）
 
-![image-20230930103132817](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930103132817.png)
+![image-20230930103132817](./图片/image-20230930103132817.png)
 
 坐标轴改变时，L1距离会改变，L2距离不会改变
 
 当输入特征向量的某些个值含有特殊含义的时候，L1更合适；当是通用向量时，L2更合适
 
-![image-20230930103535097](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930103535097.png)
+![image-20230930103535097](./图片/image-20230930103535097.png)
 
 **超参数**（Hyperparameters)：如K值、距离度量（distance metric）
 
 不能直接从数据训练集中获得，需要人为提前设置的参数
 
-![image-20230930104211215](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930104211215.png)
+![image-20230930104211215](./图片/image-20230930104211215.png)
 
-![image-20230930104759252](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930104759252.png)
+![image-20230930104759252](./图片/image-20230930104759252.png)
 
 获得最优超参数：将数据分为训练集、验证集、测试集（将现有数据集随机划分为训练集、验证集和测试集，即验证集和测试集也都是使用现有的有标签的数据，但算法并不知道标签），在训练集上用不同超参来训练算法，在验证集上进行评估，最后再把表现最好的一组超参在测试集上运行一次
 
-![image-20230930105206042](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930105206042.png)
+![image-20230930105206042](./图片/image-20230930105206042.png)
 
 交叉算法：更多在小数据集上使用，因为在大数据集上训练本身就很消耗计算能力 
 
@@ -115,15 +115,15 @@ L2距离（欧式距离）
 
 K折交叉验证（k次在不同测试集上的方差）
 
-![image-20230930105929212](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930105929212.png)
+![image-20230930105929212](./图片/image-20230930105929212.png)
 
 KNN也不是很好的算法：
 
-![](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930110350579.png)
+![](./图片/image-20230930110350579.png)
 
 - L2距离不能很好地测量图片的相似性：尽管这四幅图片是不同的，但都拥有相同的L2距离
 
-![image-20230930110529676](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930110529676.png)
+![image-20230930110529676](./图片/image-20230930110529676.png)
 
 - 维度灾难：如果要使分类器有更好的效果，需要训练数据能密集地分布在空间中（减少空白区域），需要指数倍增加的训练数据量
 
@@ -131,29 +131,29 @@ KNN也不是很好的算法：
 
 线性分类是在不同类型的深度学习应用中最基本的构建块之一
 
-![image-20230930143453556](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930143453556.png)
+![image-20230930143453556](./图片/image-20230930143453556.png)
 
-![image-20230930144537675](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930144537675.png)
+![image-20230930144537675](./图片/image-20230930144537675.png)
 
 偏移值b：例如在猫多于狗的训练集中，猫的偏移值b要更大一些
 
-![image-20230930143628750](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930143628750.png)
+![image-20230930143628750](./图片/image-20230930143628750.png)
 
-![image-20230930144519916](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930144519916.png)
+![image-20230930144519916](./图片/image-20230930144519916.png)
 
 矩阵乘法
 
-![image-20230930143759709](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930143759709.png)
+![image-20230930143759709](./图片/image-20230930143759709.png)
 
 图片的下方是线性分类器系数矩阵（权重矩阵）的可视化结果，每一个类别只有一个线性分析器，即只有一个单独的模板
 
-![image-20230930143946001](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930143946001.png)
+![image-20230930143946001](./图片/image-20230930143946001.png)
 
 图像在象限中的划分：二维坐标系中（1,1）是一个点，三维坐标系中（1,1,1）则是一个点，以此类推，PPT上猫的图片则是在3072维坐标系上的一个点，然后找到合适的划分线即可
 
 线性模型无法解决异或问题，直观上表示为无法找到一条直线分割异或点：
 
-![image-20230930144151198](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20230930144151198.png)
+![image-20230930144151198](./图片/image-20230930144151198.png)
 
 
 
@@ -161,8 +161,8 @@ KNN也不是很好的算法：
 
 代数解释：
 
-![image-20231005125904735](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20231005125904735.png)
+![image-20231005125904735](./图片/image-20231005125904735.png)
 
 几何视角：
 
-![image-20231005130005119](C:\Users\五三七\AppData\Roaming\Typora\typora-user-images\image-20231005130005119.png)
+![image-20231005130005119](./图片/image-20231005130005119.png)
