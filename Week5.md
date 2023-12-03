@@ -99,15 +99,37 @@ strided-convolution就是前边stride大于1的卷积层，实现下采样；
 
 ### R-CNN
 
+R-CNN系列论文（R-CNN,fast-RCNN,faster-RCNN）是使用深度学习进行物体检测的鼻祖论文，其中fast-RCNN 以及faster-RCNN都是沿袭R-CNN的思路。
+
+R-CNN全称region with CNN features。用CNN提取出Region Proposals中的featues，然后进行SVM分类与bbox的回归。
+
+
 相当于先在原始图片中采样得到一组局部切片作为样本，再将样本送入卷积网络进行分类
 
 ![image-20231203151643292](./图片/image-20231203151643292.png)
 
 问题：
 
+- 训练时间长：主要原因是分阶段多次训练，而且对于每个region proposal都要单独计算一次feature map，导致整体的时间变长。
+- 占用空间大：每个region proposal的feature map都要写入硬盘中保存，以供后续的步骤使用。
+- multi-stage：文章中提出的模型包括多个模块，每个模块都是相互独立的，训练也是分开的。这会导致精度不高，因为整体没有一个训练联动性，都是不共享分割训练的，自然最重要的CNN特征提取也不会做的太好。
+- 测试时间长，由于不共享计算，所以对于test image，也要为每个proposal单独计算一次feature map，因此测试时间也很长。
+
+
+
 ![image-20231203151732675](./图片/image-20231203151732675.png)
 
 ### Fast R-CNN
+
+Fast RCNN主要有3个改进：
+
+1、卷积不再是对每个region proposal进行，而是直接对整张图像，这样减少了很多重复计算。原来RCNN是对每个region proposal分别做卷积，因为一张图像中有2000左右的region proposal，肯定相互之间的重叠率很高，因此产生重复计算。
+
+2、用ROI pooling进行特征的尺寸变换，因为全连接层的输入要求尺寸大小一样，因此不能直接把region proposal作为输入。
+
+3、将regressor放进网络一起训练，每个类别对应一个regressor，同时用softmax代替原来的SVM分类器。
+
+因此，Fast R-CNN相对于R-CNN来说，在训练速度上比RCNN快了将近9倍，比SPPnet快大概3倍；测试速度比RCNN快了213倍，比SPPnet快了10倍。在VOC2012上的mAP在66%左右。
 
 
 
@@ -129,4 +151,11 @@ strided-convolution就是前边stride大于1的卷积层，实现下采样；
 
 ### Mask R-CNN 
 
+Mask R-CNN是在Faster R-CNN的基础上加了一个用于预测目标分割Mask的分支（即可预测目标的Bounding Boxes信息、类别信息以及分割Mask信息）,可以完成目标分类、目标检测、语义分割、实例分割、人体姿势识别等多种任务
+
+![img](https://img-blog.csdn.net/20180306100257583)
+
 ![image-20231203150030095](./图片/image-20231203150030095.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/6a7ce3ce6d304304a533a3c3f081399d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5aSq6Ziz6Iqx55qE5bCP57u_6LGG,size_10,color_FFFFFF,t_70,g_se,x_16)
+
